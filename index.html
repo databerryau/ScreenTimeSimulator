@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Holiday Balance Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Interactive simulation</p>
+      <h1>Holiday Balance Lab</h1>
+      <p>Explore how screen time, movement, and breaks shape a teen's fitness and comfort during a holiday stretch. Build a schedule, add realistic randomness, and compare balanced alternatives.</p>
+      <div class="actions">
+        <button id="preset-current" class="pill">Load "Your current deal"</button>
+        <button id="preset-balanced" class="pill">Load balanced alternative</button>
+        <button id="preset-drift" class="pill">Load holiday drift</button>
+      </div>
+    </div>
+    <div class="config">
+      <label>Simulation horizon (weeks)
+        <input type="range" id="weeks" min="1" max="6" value="4" />
+        <span id="weeks-value">4</span>
+      </label>
+      <label>Motivation / compliance
+        <input type="range" id="compliance" min="0" max="100" value="75" />
+        <span id="compliance-value">75%</span>
+      </label>
+      <label>Baseline fitness (0–100)
+        <input type="range" id="fitness" min="20" max="80" value="50" />
+        <span id="fitness-value">50</span>
+      </label>
+      <label>Break rule
+        <select id="break-rule">
+          <option value="none">Off</option>
+          <option value="30">5 min every 30 min</option>
+          <option value="60" selected>5 min every 60 min</option>
+        </select>
+      </label>
+      <label>Ergonomics
+        <select id="ergonomics">
+          <option value="poor">Poor</option>
+          <option value="ok" selected>OK</option>
+          <option value="good">Good</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="device-handin" checked /> Device hand-in at night
+      </label>
+      <label>
+        <input type="checkbox" id="active-gaming" /> Active gaming substitution
+      </label>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Schedule builder</p>
+          <h2>Drag or click to build a 24h plan (15-minute blocks)</h2>
+          <p>Select an activity type and paint blocks on the grid. The same plan repeats daily across the holiday weeks.</p>
+        </div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="builder">
+        <div class="controls">
+          <label>Active tool
+            <select id="activity-select"></select>
+          </label>
+          <button id="clear-schedule">Clear day</button>
+          <button id="export-scenario">Export scenario JSON</button>
+          <textarea id="export-output" readonly placeholder="Scenario JSON will appear here"></textarea>
+        </div>
+        <div class="grid" id="schedule-grid"></div>
+      </div>
+    </section>
+
+    <section class="panel metrics">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Daily signals</p>
+          <h2>Cause and effect snapshot</h2>
+          <p>Numbers update instantly as you adjust the schedule. Randomness adds drift to mimic real holiday behavior.</p>
+        </div>
+        <div class="mini-controls">
+          <label>Weather / outdoor access
+            <select id="outdoors">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+          <label>Social opportunities
+            <select id="social">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="metric-grid" id="metric-grid"></div>
+    </section>
+
+    <section class="panel compare">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Compare scenarios</p>
+          <h2>What-if holiday patterns</h2>
+          <p>See how the current deal stacks up against a balanced plan and a typical holiday drift.</p>
+        </div>
+      </div>
+      <div class="comparison" id="comparison"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Weekly report</p>
+          <h2>Trend over the holiday</h2>
+          <p>Average metrics by week with plain-language risk flags.</p>
+        </div>
+      </div>
+      <div class="report">
+        <table id="weekly-table"></table>
+        <div class="flags" id="risk-flags"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="disclaimer">
+    <p>Educational only. Outputs show directional risk, not medical advice. Sleep is excluded but sedentary time still drives meaningful fitness and comfort changes.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
